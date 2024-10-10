@@ -11,4 +11,5 @@ def test_up_first_2():
     assert get_mask_account('73654108430135874305') == '**4305'
     assert get_mask_account('73654108445857895892400230135874305') == '**4305'
     assert get_mask_account('74305') == '**4305'
-    assert get_mask_account('5') == 'неверный номер счета'
+    assert get_mask_account('gnb') == 'неверный номер счета'
+    assert get_mask_account('736541084301mjnh') == 'неверный номер счета'
