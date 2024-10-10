@@ -1,9 +1,9 @@
 
-def filter_by_state(dictionary: list, state=['EXECUTED']) -> list:
+def filter_by_state(dictionary: list, state='EXECUTED') -> list:
     """сортировка по state"""
     new_dictionary = []
     for i in dictionary:
-        if i['state'] in state:
+        if i['state'] == state:
             new_dictionary.append(i)
     return new_dictionary
 
