@@ -10,4 +10,6 @@ def get_mask_card_number(number_1: str) -> str:
 
 def get_mask_account(number_0: str) -> str:
     """возращает последние четыре цифры счета"""
-    return "**" + number_0[-4:]
+    if len(number_0) > 4:
+        return "**" + number_0[-4:]
+    return f'неверный номер счета'
