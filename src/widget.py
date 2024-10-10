@@ -11,7 +11,7 @@ def mask_account_card(number_3: str) -> str:
     if len(number_3) > 0:
         for i in number_3:
             if i in 'С':
-                return 'Счет ' + get_mask_account(number_3)
+                return 'Счет ' + "**" + number_3[-4:]
             else:
                 number_5 = number_3[-16:]
                 df = len(number_3) - 16

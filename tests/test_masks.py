@@ -5,6 +5,7 @@ def test_up_first():
     assert get_mask_card_number('7000792289606361') == '7000 79** **** 6361'
     assert get_mask_card_number('7000792289') == 'неверный номер карты'
     assert get_mask_card_number('') == 'неверный номер карты'
+    assert get_mask_card_number('fsdghdfghjkloip;') == 'неверный номер карты'
 
 
 def test_up_first_2():
