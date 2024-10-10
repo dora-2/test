@@ -1,9 +1,11 @@
 
 def get_mask_card_number(number_1: str) -> str:
     """возращает маску карты"""
-    return (
-        number_1[0:4] + " " + number_1[4:6] + "**" + " " + "****" + " " + number_1[-4:]
-    )
+    if len(number_1) == 16:
+        return (
+            number_1[0:4] + " " + number_1[4:6] + "**" + " " + "****" + " " + number_1[-4:]
+        )
+    return f'неверный номер карты'
 
 
 def get_mask_account(number_0: str) -> str:
