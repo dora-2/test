@@ -9,7 +9,7 @@ def get_mask_card_number(number_1: str, k=0) -> str:
             return (
                 number_1[0:4] + " " + number_1[4:6] + "**" + " " + "****" + " " + number_1[-4:]
             )
-    return f'неверный номер карты'
+    return f'{'неверный номер карты'}'
 
 
 def get_mask_account(number_0: str, k=0) -> str:
@@ -20,4 +20,4 @@ def get_mask_account(number_0: str, k=0) -> str:
                 k += 1
         if k == 0:
             return "**" + number_0[-4:]
-    return f'неверный номер счета'
+    return f'{'неверный номер счета'}'
