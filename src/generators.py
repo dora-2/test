@@ -77,6 +77,16 @@ transactions = (
     ]
 )
 
-usd_transactions = filter_by_currency(transactions, 'USD')
-for i in range(2):
-    print(next(usd_transactions))
+# usd_transactions = filter_by_currency(transactions, 'USD')
+# for i in range(2):
+#     print(next(usd_transactions))
+
+
+def transaction_descriptions(transactions):
+    for transaction in transactions:
+        yield f"{transaction['description']}"
+
+
+descriptions = transaction_descriptions(transactions)
+for _ in range(5):
+    print(next(descriptions))
