@@ -1,3 +1,5 @@
+import itertools
+
 def filter_by_currency(transactions, currency):
     def _is_matching_currency(transaction):
         operation_amount = transaction["operationAmount"]
@@ -87,6 +89,15 @@ def transaction_descriptions(transactions):
         yield f"{transaction['description']}"
 
 
-descriptions = transaction_descriptions(transactions)
-for _ in range(5):
-    print(next(descriptions))
+# descriptions = transaction_descriptions(transactions)
+# for _ in range(5):
+#     print(next(descriptions))
+
+
+def card_number_generator(start=1, end=9999999999999999):
+    for num in range(start, end + 1):
+        yield f'{num:016}'
+
+
+for card_number in card_number_generator(1, 5):
+    print(card_number)
