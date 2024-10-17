@@ -1,17 +1,9 @@
-import itertools
+import pytest
+from src.generators import filter_by_currency, transaction_descriptions
 
-def filter_by_currency(transactions, currency='USD'):
-    def _is_matching_currency(transaction):
-        operation_amount = transaction["operationAmount"]
-        currency_details = operation_amount["currency"]
-        return currency_details["name"].lower() == currency.lower()
-
-    filtered = (transaction for transaction in transactions if _is_matching_currency(transaction))
-    return filtered
-
-
-transactions = (
-    [{"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572", "operationAmount": {"amount": "9824.07", "currency": {"name": "USD","code": "USD"}},
+@pytest.fixture
+def coll():
+    return ([{"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572", "operationAmount": {"amount": "9824.07", "currency": {"name": "USD","code": "USD"}},
             "description": "Перевод организации",
             "from": "Счет 75106830613657916952",
             "to": "Счет 11776614605963066702"
@@ -74,30 +66,15 @@ transactions = (
             },
             "description": "Перевод организации",
             "from": "Visa Platinum 1246377376343588",
-            "to": "Счет 14211924144426031657"
-        }
-    ]
-)
-
-# usd_transactions = filter_by_currency(transactions, 'USD')
-# # for i in range(2):
-# print(next(usd_transactions))
+                    "to": "Счет 14211924144426031657"
+            }
+            ]
+        )
 
 
-def transaction_descriptions(transactions):
-    for transaction in transactions:
-        yield f"{transaction['description']}"
+def test_filter_by_currency(coll):
+    assert filter_by_currency(coll) == {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572", "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}}, "description": "Перевод организации", "from": "Счет 75106830613657916952", "to": "Счет 11776614605963066702"}
 
 
-descriptions = transaction_descriptions(transactions)
-# for _ in range(5):
-print(next(descriptions))
-
-
-def card_number_generator(start=1, end=9999999999999999):
-    for num in range(start, end + 1):
-        yield f'{num:016}'
-
-
-# for card_number in card_number_generator(1, 5):
-#     print(card_number)
+def test_transaction_descriptions(coll):
+    assert transaction_descriptions(coll) == 'Перевод организации'
