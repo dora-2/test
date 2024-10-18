@@ -18,8 +18,8 @@ def transaction_descriptions(transactions):
 
 
 # descriptions = transaction_descriptions(transactions)
-# # for _ in range(5):
-# print(next(descriptions))
+# for i in range(5):
+#     print(next(descriptions))
 
 
 def card_number_generator(start=1, end=9999999999999999):
