@@ -24,7 +24,8 @@ def transaction_descriptions(transactions):
 
 def card_number_generator(start=1, end=9999999999999999):
     for num in range(start, end + 1):
-        yield f'{num:016}'
+        s = f'{num:016d}'
+        yield f'{s[:4]} {s[4:8]} {s[8:12]} {s[12:]}'
 
 
 # for card_number in card_number_generator(1, 5):
