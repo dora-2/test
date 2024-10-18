@@ -1,11 +1,13 @@
 import pytest
 
-from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+from src.generators import (card_number_generator, filter_by_currency,
+                            transaction_descriptions)
 
 
 @pytest.fixture
 def coll():
-    return ([{"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572", "operationAmount": {"amount": "9824.07", "currency": {"name": "USD","code": "USD"}},
+    return ([{"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572", "operationAmount":
+{"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
             "description": "Перевод организации",
             "from": "Счет 75106830613657916952",
             "to": "Счет 11776614605963066702"
@@ -76,10 +78,11 @@ def coll():
 
 def test_filter_by_currency(coll):
     usd_transactions = filter_by_currency(coll, "USD")
-    assert next(usd_transactions) == {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572", "operationAmount":
-                                            {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
-                                        "description": "Перевод организации", "from": "Счет 75106830613657916952",
-                                        "to": "Счет 11776614605963066702"}
+    assert next(usd_transactions) == {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572",
+                                      "operationAmount":
+                                          {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
+                                            "description": "Перевод организации", "from": "Счет 75106830613657916952",
+                                              "to": "Счет 11776614605963066702"}
     assert next(usd_transactions) == {
               "id": 142264268,
               "state": "EXECUTED",
@@ -107,7 +110,7 @@ def test_transaction_descriptions(coll):
 
 
 def test_card_number_generator():
-    generator = card_number_generator(1,5)
+    generator = card_number_generator(1, 5)
     assert next(generator) == '0000 0000 0000 0001'
     assert next(generator) == '0000 0000 0000 0002'
     assert next(generator) == '0000 0000 0000 0003'
