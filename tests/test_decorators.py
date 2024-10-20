@@ -1,58 +1,58 @@
-import logging
-from functools import wraps
-import time
+import pytest
+from src.decorators import log
 
+@pytest.fixture
+def capsys():
+    return log().patch('builtins.print').start()
 
-def log(filename=None):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            start_time = time.perf_counter()
+def test_decorator_with_successful_function(capsys):
+    # Проверка выполнения функции без ошибок
+    # @timer
+    def add(a, b):
+        return a + b
 
-            try:
-                result = func(*args, **kwargs)
+    assert add(1, 2) == 3
+    captured = capsys.readouterror()
+    expected_output = 'Функция add выполнена за 0.0000 секунд\n'
+    assert captured == expected_output
 
-                if filename is not None:
-                    # Запись логов в файл
-                    with open(filename, 'a') as f:
-                        msg = f'{func.__name__}: Выполнена успешно. Результат: {result}. Время выполнения: {time.perf_counter() - start_time} сек.'
-                        print(msg, file=f)
-                else:
-                    # Вывод логов в консоль
-                    print(
-                        f'{func.__name__}: Выполнена успешно. Результат: {result}. Время выполнения: {time.perf_counter() - start_time} сек.')
-            except Exception as e:
-                if filename is not None:
-                    # Запись логов об ошибках в файл
-                    with open(filename, 'a') as f:
-                        msg = f'{func.__name__}: Возникла ошибка. Тип ошибки: {type(e).__name__}, Параметры: {args}, {kwargs}'
-                        print(msg, file=f)
-                else:
-                    # Вывод логов об ошибках в консоль
-                    print(
-                        f'{func.__name__}: Возникла ошибка. Тип ошибки: {type(e).__name__}, Параметры: {args}, {kwargs}')
-            finally:
-                return result
+def test_decorator_with_exceptions(capsys):
+    # Проверка обработки исключений
+    # @timer
+    def divide(a, b):
+        if b == 0:
+            raise ValueError("Деление на ноль")
+        else:
+            return a / b
 
-        return wrapper
+    with pytest.raises(ValueError):
+        divide(1, 0)
+    captured = capsys.readouterror()
+    expected_output = 'Функция divide выполнена за 0.0000 секунд\n'
+    assert captured == expected_output
 
-    return decorator
+def test_decorator_with_invalid_arguments(capsys):
+    # Проверка работы с неправильными аргументами
+    # @timer
+    def subtract(a, b):
+        return a - b
 
+    with pytest.raises(TypeError):
+        subtract(1, 'a')
+    captured = capsys.readouterror()
+    expected_output = 'Функция subtract выполнена за 0.0000 секунд\n'
+    assert captured == expected_output
 
-# Пример использования
-@log('logs.txt')
-def add(x, y):
-    return x + y
+def test_decorator_multiple_calls(capsys):
+    # Проверка нескольких вызовов одной функции
+    # @timer
+    def multiply(a, b):
+        return a * b
 
-
-@log()
-def subtract(x, y):
-    return x - y
-
-
-if __name__ == '__main__':
-    # print(add(2, 4))
-    print(subtract(20, 8))
-    # print(subtract(20, 'a'))  # Ошибка
+    for _ in range(5):
+        multiply(2, 3)
+    captured = capsys.readouterror()
+    expected_output = f'Функция multiply выполнена за {5*0.0000:.4f} секунд\n'
+    assert captured == expected_output
 
 
