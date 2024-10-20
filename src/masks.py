@@ -13,6 +13,7 @@ def get_mask_card_number(number_1: str, k=0) -> str:
                 number_1[0:4] + " " + number_1[4:6] + "**" + " " + "****" + " " + number_1[-4:]
             )
     return f'{'неверный номер карты'}'
+
 if __name__ == '__main__':
     print(get_mask_card_number('1234567891234567'))
 # get_mask_card_number('1234567891234567')
