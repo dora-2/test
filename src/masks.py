@@ -1,4 +1,7 @@
+from src.decorators import log
 
+
+@log
 def get_mask_card_number(number_1: str, k=0) -> str:
     """возращает маску карты"""
     if len(number_1) == 16:
@@ -10,7 +13,10 @@ def get_mask_card_number(number_1: str, k=0) -> str:
                 number_1[0:4] + " " + number_1[4:6] + "**" + " " + "****" + " " + number_1[-4:]
             )
     return f'{'неверный номер карты'}'
-
+if __name__ == '__main__':
+    print(get_mask_card_number('1234567891234567'))
+# get_mask_card_number('1234567891234567')
+# help(get_mask_card_number)
 
 def get_mask_account(number_0: str, k=0) -> str:
     """возращает последние четыре цифры счета"""
