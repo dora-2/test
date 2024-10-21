@@ -14,26 +14,25 @@ def log(filename=None):
                 if filename is not None:
                     # Запись логов в файл
                     with open(filename, 'a') as f:
-                        msg = (f'{func.__name__}: Выполнена успешно. '
-                               f'Результат: {result}. Время выполнения: {time.perf_counter() - start_time} сек.')
+                        msg = (f'{func.__name__} ok')
+                               # f'Результат: {result}. Время выполнения: {time.perf_counter() - start_time} сек.')
                         print(msg, file=f)
                 else:
                     # Вывод логов в консоль
-                    print(
-                        f'{func.__name__}: Выполнена успешно. '
-                        f'Результат: {result}. Время выполнения: {time.perf_counter() - start_time} сек.')
+                    print(f'{func.__name__} ok')
+                        # f'Результат: {result}. Время выполнения: {time.perf_counter() - start_time} сек.')
             except Exception as e:
                 if filename is not None:
                     # Запись логов об ошибках в файл
                     with open(filename, 'a') as f:
-                        msg = (f'{func.__name__}: Возникла ошибка. '
-                               f'Тип ошибки: {type(e).__name__}, Параметры: {args}, {kwargs}')
+                        msg = (f'{func.__name__} '
+                               f'error: {type(e).__name__}, Inputs: {args}, {kwargs}')
                         print(msg, file=f)
                 else:
                     # Вывод логов об ошибках в консоль
                     print(
-                        f'{func.__name__}: Возникла ошибка. '
-                        f'Тип ошибки: {type(e).__name__}, Параметры: {args}, {kwargs}')
+                        f'{func.__name__} '
+                        f'error: {type(e).__name__}, Inputs: {args}, {kwargs}')
             finally:
                 return result
 

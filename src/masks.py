@@ -15,7 +15,7 @@ def get_mask_card_number(number_1: str, k=0) -> str:
     return f'{'неверный номер карты'}'
 
 
-@log()
+@log(filename='mylog.txt')
 def get_mask_account(number_0: str, k=0) -> str:
     """возращает последние четыре цифры счета"""
     if len(number_0) > 4:
