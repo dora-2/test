@@ -2,7 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 
-load_dotenv('.env')
+load_dotenv('../venv/.env')
 
 def currency_api(to_api: str, from_api: str, amount_api: int) -> dict:
     """ конвертирует валюту """
