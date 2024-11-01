@@ -9,7 +9,9 @@ def currency_api(to_api: str, from_api: str, amount_api: int) -> dict:
     url = f"https://api.apilayer.com/exchangerates_data/convert?to={to_api}&from={from_api}&amount={amount_api}"
 
     payload = {}
-    headers = os.getenv('apikey')
+    headers = {
+        "apikey": os.getenv('apikey')
+    }
 
     response = requests.request("GET", url, headers=headers, data=payload)
 
