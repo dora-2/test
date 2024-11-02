@@ -1,6 +1,5 @@
-from decorators import log
 import logging
-
+from decorators import log
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -9,6 +8,7 @@ logging.basicConfig(level=logging.DEBUG,
 
 auth_logger = logging.getLogger('get_mask_card_number')
 dl_logger = logging.getLogger('get_mask_account')
+
 
 @log()
 def get_mask_card_number(number_1: str, k=0) -> str:
@@ -23,7 +23,7 @@ def get_mask_card_number(number_1: str, k=0) -> str:
             return (
                 number_1[0:4] + " " + number_1[4:6] + "**" + " " + "****" + " " + number_1[-4:]
             )
-    auth_logger.warning(f'неверный номер карты')
+    auth_logger.warning('неверный номер карты')
     return f'{'неверный номер карты'}'
 
 
@@ -36,9 +36,9 @@ def get_mask_account(number_0: str, k=0) -> str:
             if i not in '1234567890':
                 k += 1
         if k == 0:
-            dl_logger.info(f'программа работает успешно')
+            dl_logger.info('программа работает успешно')
             return "**" + number_0[-4:]
-    dl_logger.error(f'неверный формат счета')
+    dl_logger.error('неверный формат счета')
     return f'{'неверный формат счета'}'
 
 
