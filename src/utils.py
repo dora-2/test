@@ -30,7 +30,7 @@ def load_financial_transactions(file_path: str) -> list:
             return []
     except json.JSONDecodeError as e:
         print(f"Произошла ошибка при разборе JSON: {e}")
-        auth_logger.warning(f"Произошла ошибка при разборе JSON: {e}")
+        auth_logger.error(f"Произошла ошибка при разборе JSON: {e}")
         return []
 
 
