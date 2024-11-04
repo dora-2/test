@@ -1,6 +1,1 @@
-import pandas as pd
-
-
-excel_data = pd.read_excel("transactions_excel.xlsx")
-# print(excel_data.shape)
-print(excel_data.head())
+import pandas as pdimport csvdef excel_read ():    excel_data = pd.read_excel('transactions_excel.xlsx')    # print(excel_data.shape)    print(excel_data.head())def csv_read():    with open('transactions.csv', 'r') as file:    csv_reader = csv.reader(file)    for row in csv_reader:        print(row)
