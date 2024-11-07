@@ -1,3 +1,7 @@
+
+
+
+
 def main(s=0):
     print(f'Привет! Добро пожаловать в программу работы с банковскими транзакциями.')
     print(f'1. Получить информацию о транзакциях из JSON-файла')
@@ -9,7 +13,6 @@ def main(s=0):
         if x == 1:
             print(f'Для обработки выбран JSON-файл.')
             s += 1
-            print(f'{s}fgfg')
         elif x == 2:
             print(f'Для обработки выбран CSV-файл.')
             s += 1
@@ -18,6 +21,15 @@ def main(s=0):
             s += 1
         else:
             print('некорректный выбор. попробуйте еще раз')
+    s = 0
+    while s == 0:
+        print(f'Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING')
+        d = input(f'Введите статус, по которому необходимо выполнить фильтрацию: ')
+        if d.upper() not in ['EXECUTED', 'CANCELED', 'PENDING']:
+            print(f'некорректный выбор. попробуйте еще раз')
+        elif d.upper() in ['EXECUTED', 'CANCELED', 'PENDING']:
+            print(f'Операции отфильтрованы по статусу {d}')
+            s += 1
 
 main()
 
