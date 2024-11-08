@@ -33,11 +33,25 @@ def load_financial_transactions(file_path: str) -> list:
         auth_logger.error(f"Произошла ошибка при разборе JSON: {e}")
         return []
 
+def cl():
+    transactions = load_financial_transactions('operations.json')
+    if transactions:
+        for transaction in transactions:
+            if len(transaction) > 1:
+                if transaction['description'] == 'Перевод организации' or transaction['description'] == 'Перевод со счета на счет' or transaction['description'] == 'Перевод с карты на карту' or transaction['description'] == 'Перевод с карты на счет':
+                    print(transaction['date'], transaction['state'], transaction["operationAmount"]["amount"],
+                          transaction["operationAmount"]["currency"]["name"], transaction['description'],
+                          transaction['from'], transaction['to'])
+                else:
+                    print(transaction['date'], transaction['state'], transaction["operationAmount"]["amount"],
+                          transaction["operationAmount"]["currency"]["name"], transaction['description'],
+                          transaction['to'])
+    else:
+        print("Список транзакций пуст")
 
-transactions = load_financial_transactions('operations.json')
-if transactions:
-    for transaction in transactions:
-        if len(transaction) > 1:
-            print(transaction['date'], transaction["operationAmount"]["amount"], transaction['description'])
-else:
-    print("Список транзакций пуст")
+def dfg():
+    s = cl()
+    for i in s:
+        print(i['date'])
+
+dfg()
