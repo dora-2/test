@@ -1,4 +1,4 @@
-def filter_by_currency(transactions, currency='USD'):
+def filter_by_currency(transactions, currency='RUB'):
     """поочередно выдает транзакции, где валюта операции соответствует заданной"""
     def _is_matching_currency(transaction):
         operation_amount = transaction["operationAmount"]

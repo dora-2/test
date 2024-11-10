@@ -33,25 +33,42 @@ def load_financial_transactions(file_path: str) -> list:
         auth_logger.error(f"Произошла ошибка при разборе JSON: {e}")
         return []
 
-def cl():
+def cl(k=[], dictionary = {}):
     transactions = load_financial_transactions('operations.json')
     if transactions:
         for transaction in transactions:
             if len(transaction) > 1:
+
+                # k.append(transaction)
                 if transaction['description'] == 'Перевод организации' or transaction['description'] == 'Перевод со счета на счет' or transaction['description'] == 'Перевод с карты на карту' or transaction['description'] == 'Перевод с карты на счет':
-                    print(transaction['date'], transaction['state'], transaction["operationAmount"]["amount"],
-                          transaction["operationAmount"]["currency"]["name"], transaction['description'],
-                          transaction['from'], transaction['to'])
+                    # print(transaction['date'], transaction['state'], transaction["operationAmount"]["amount"],
+                    #       transaction["operationAmount"]["currency"]["name"], transaction['description'],
+                    #       transaction['from'], transaction['to'])
+
+                    dictionary['date'] = transaction['date']
+                    dictionary['state'] = transaction['state']
+                    dictionary['amount'] = transaction["operationAmount"]["amount"]
+                    dictionary['currency'] = transaction["operationAmount"]["currency"]["code"]
+                    dictionary['description'] = transaction['description']
+                    dictionary['from'] = transaction['from']
+                    dictionary['to'] = transaction['to']
+
+                    # for key, value in transaction.items():
+                    #     s = f'{key}: {value}'
+                    k.append(dictionary)
+
                 else:
-                    print(transaction['date'], transaction['state'], transaction["operationAmount"]["amount"],
-                          transaction["operationAmount"]["currency"]["name"], transaction['description'],
-                          transaction['to'])
+                    dictionary['date'] = transaction['date']
+                    dictionary['state'] = transaction['state']
+                    dictionary['amount'] = transaction["operationAmount"]["amount"]
+                    dictionary['currency'] = transaction["operationAmount"]["currency"]["code"]
+                    dictionary['description'] = transaction['description']
+                    dictionary['to'] = transaction['to']
+                    # print(transaction['date'], transaction['state'], transaction["operationAmount"]["amount"],
+                    #       transaction["operationAmount"]["currency"]["name"], transaction['description'],
+                    #                      transaction['to'])
+        return k
     else:
         print("Список транзакций пуст")
 
-def dfg():
-    s = cl()
-    for i in s:
-        print(i['date'])
-
-dfg()
+print(cl())

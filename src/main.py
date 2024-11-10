@@ -1,6 +1,7 @@
 from src.utils import cl
-from src.csv_pandas import mlev
-
+from src.csv_pandas import scl, excel_read
+from src.processing import filter_by_state, sort_by_date
+from src.generators import filter_by_currency
 
 
 
@@ -14,12 +15,15 @@ def main(s=0):
     while s == 0:
         if x == 1:
             print(f'Для обработки выбран JSON-файл.')
+            transactions_data = cl()
             s += 1
         elif x == 2:
             print(f'Для обработки выбран CSV-файл.')
+            transactions_data = scl()
             s += 1
         elif x == 3:
             print(f'Для обработки выбран XLSX-файл.')
+            transactions_data = excel_read('transactions_excel.xlsx')
             s += 1
         else:
             print('некорректный выбор. попробуйте еще раз')
@@ -32,21 +36,31 @@ def main(s=0):
             print(f'Статус операции "{d}" недоступен.')
         elif d.upper() in ['EXECUTED', 'CANCELED', 'PENDING']:
             print(f'Операции отфильтрованы по статусу {d}')
+            transactions_data = filter_by_state(transactions_data, d)
             s += 1
 
     print('Отсортировать операции по дате? Да/Нет')
     q = input()
-    print('Отсортировать по возрастанию или по убыванию? ')
-    w = input()
+    if q.upper() == 'да':
+        print('Отсортировать по возрастанию или по убыванию? ')
+        w = input()
+        if w == 'по возрастанию':
+            transactions_data = sort_by_date(transactions_data)
+        else:
+            transactions_data = sort_by_date(transactions_data, False)
     print('Выводить только рублевые транзакции? Да/Нет')
     e = input()
+    if e.upper() == 'да':
+        transactions_data = filter_by_currency(transactions_data )
     print('Отфильтровать список транзакций по определенному слову в описании? Да/Нет')
     r = input()
+    if r.upper() ==  'да':
+        transactions_data = filter_by_currency(transactions_data)
     print('Распечатываю итоговый список транзакций...')
 
+    return transactions_data
 
-
-main()
+print(main())
 
 
 
