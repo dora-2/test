@@ -1,9 +1,10 @@
 def filter_by_currency(transactions, currency='RUB'):
     """поочередно выдает транзакции, где валюта операции соответствует заданной"""
     def _is_matching_currency(transaction):
-        operation_amount = transaction["operationAmount"]
-        currency_details = operation_amount["currency"]
-        return currency_details["name"].lower() == currency.lower()
+        # operation_amount = transaction["operationAmount"]
+        # currency_details = operation_amount["currency"]
+        # return currency_details["name"].lower() == currency.lower()
+        return transaction["currency_code"].lower() == currency.lower()
 
     filtered = (transaction for transaction in transactions if _is_matching_currency(transaction))
     return filtered

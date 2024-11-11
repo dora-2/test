@@ -9,4 +9,4 @@ def filter_by_state(dictionary: list, state='EXECUTED') -> list:
 
 def sort_by_date(dictionary_2: list, reverse=True) -> list:
     """сортировка по date"""
-    dictionary_2.sort(key=lambda x: x['date'], reverse=reverse)
+    return sorted(dictionary_2, key=lambda x: x['date'], reverse=reverse)

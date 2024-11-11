@@ -12,8 +12,8 @@ def filter_operations(tra: list, search_string: str) -> list:
     return s
 
 
-d = excel_read('transactions_excel.xlsx')
-print(filter_operations(d, ['Открытие вклада']))
+# d = excel_read('transactions_excel.xlsx')
+# print(filter_operations(d, ['Открытие вклада']))
 
 # print(filter_operations(d, 'Перевод с карты на карту'))
 
@@ -30,4 +30,4 @@ def filter_operations_2(tra: list, operation: list) -> dict:
     return dict(counter)
 
 
-# d = excel_read('transactions_excel.xlsx')
+d = excel_read('transactions_excel.xlsx')

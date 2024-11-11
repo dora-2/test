@@ -10,20 +10,20 @@ auth_logger = logging.getLogger('get_mask_card_number')
 dl_logger = logging.getLogger('get_mask_account')
 
 
-@log()
+# @log()
 def get_mask_card_number(number_1: str, k=0) -> str:
     """возращает маску карты"""
-    auth_logger.info(f'ввели номер карты: {number_1}')
+    # auth_logger.info(f'ввели номер карты: {number_1}')
     if len(number_1) == 16:
         for i in number_1:
             if i not in '1234567890':
                 k += 1
         if k == 0:
-            auth_logger.info('программа работает успешно')
+            # auth_logger.info('программа работает успешно')
             return (
                 number_1[0:4] + " " + number_1[4:6] + "**" + " " + "****" + " " + number_1[-4:]
             )
-    auth_logger.warning('неверный номер карты')
+    # auth_logger.warning('неверный номер карты')
     return f'{'неверный номер карты'}'
 
 

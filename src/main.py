@@ -3,6 +3,7 @@ from src.csv_pandas import scl, excel_read
 from src.processing import filter_by_state, sort_by_date
 from src.generators import filter_by_currency
 from src.re_collections_random import filter_operations
+from src.widget import get_date, mask_account_card
 
 
 
@@ -46,20 +47,34 @@ def main(s=0):
         print('Отсортировать по возрастанию или по убыванию? ')
         w = input()
         if w == 'по возрастанию':
-            transactions_data = sort_by_date(transactions_data)
-        else:
             transactions_data = sort_by_date(transactions_data, False)
+        else:
+            transactions_data = sort_by_date(transactions_data)
     print('Выводить только рублевые транзакции? Да/Нет')
     e = input()
     if e.lower() == 'да':
-        transactions_data = filter_by_currency(transactions_data )
+        transactions_data = list(filter_by_currency(transactions_data))
     print('Отфильтровать список транзакций по определенному слову в описании? Да/Нет')
     r = input()
     if r.lower() ==  'да':
-        transactions_data = filter_operations(transactions_data)
+        search_string = input("Введите слово для фильтрации: ")
+        transactions_data = filter_operations(transactions_data, search_string)
     print('Распечатываю итоговый список транзакций...')
 
-    return transactions_data
+    if len(transactions_data) == 0:
+        return f'Не найдено ни одной транзакции, подходящей под ваши условия фильтрации'
+
+    print(f'Всего банковских операций в выборке: {len(transactions_data)}')
+
+    for i in transactions_data:
+        print(f' ')
+        print(f'{get_date(i['date']), i['description']}')
+        if type(i['from']) == float:
+            print(mask_account_card(i['to']))
+        else:
+            print(mask_account_card(i['from']), f'->', mask_account_card(i['to']))
+        print(f'Сумма: {i['amount']} {i['currency_code']} ')
+    # return transactions_data
 
 print(main())
 

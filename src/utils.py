@@ -48,7 +48,7 @@ def cl(k=[], dictionary = {}):
                     dictionary['date'] = transaction['date']
                     dictionary['state'] = transaction['state']
                     dictionary['amount'] = transaction["operationAmount"]["amount"]
-                    dictionary['currency'] = transaction["operationAmount"]["currency"]["code"]
+                    dictionary['currency_code'] = transaction["operationAmount"]["currency"]["code"]
                     dictionary['description'] = transaction['description']
                     dictionary['from'] = transaction['from']
                     dictionary['to'] = transaction['to']
@@ -61,7 +61,7 @@ def cl(k=[], dictionary = {}):
                     dictionary['date'] = transaction['date']
                     dictionary['state'] = transaction['state']
                     dictionary['amount'] = transaction["operationAmount"]["amount"]
-                    dictionary['currency'] = transaction["operationAmount"]["currency"]["code"]
+                    dictionary['currency_code'] = transaction["operationAmount"]["currency"]["code"]
                     dictionary['description'] = transaction['description']
                     dictionary['to'] = transaction['to']
                     # print(transaction['date'], transaction['state'], transaction["operationAmount"]["amount"],
@@ -71,4 +71,4 @@ def cl(k=[], dictionary = {}):
     else:
         print("Список транзакций пуст")
 
-print(type(cl()))
+print(cl())
