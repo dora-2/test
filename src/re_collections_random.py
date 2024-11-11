@@ -1,17 +1,21 @@
 from src.csv_pandas import excel_read
 from collections import Counter
+import re
 
-
-def filter_operations(tra: list, search_string: str, s=[]) -> list:
+def filter_operations(tra: list, search_string: str) -> list:
     """возращает список словарей, у которых в описании есть данная строка"""
+    s = []
     for i in tra:
-        if i['description'] == search_string:
+        # print(i['description'])
+        if re.findall(str(search_string), str(i['description'])):
             s.append(i)
     return s
 
 
 d = excel_read('transactions_excel.xlsx')
-print(filter_operations(d, 'Перевод с карты на карту'))
+print(filter_operations(d, ['Открытие вклада']))
+
+# print(filter_operations(d, 'Перевод с карты на карту'))
 
 
 def filter_operations_2(tra: list, operation: list) -> dict:
@@ -27,4 +31,3 @@ def filter_operations_2(tra: list, operation: list) -> dict:
 
 
 # d = excel_read('transactions_excel.xlsx')
-print(filter_operations_2(d, ['Перевод с карты на карту', 'Открытие вклада', 'Перевод со счета на счет']))

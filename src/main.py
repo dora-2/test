@@ -41,7 +41,7 @@ def main(s=0):
 
     print('Отсортировать операции по дате? Да/Нет')
     q = input()
-    if q.upper() == 'да':
+    if q.lower() == 'да':
         print('Отсортировать по возрастанию или по убыванию? ')
         w = input()
         if w == 'по возрастанию':
@@ -50,11 +50,11 @@ def main(s=0):
             transactions_data = sort_by_date(transactions_data, False)
     print('Выводить только рублевые транзакции? Да/Нет')
     e = input()
-    if e.upper() == 'да':
+    if e.lower() == 'да':
         transactions_data = filter_by_currency(transactions_data )
     print('Отфильтровать список транзакций по определенному слову в описании? Да/Нет')
     r = input()
-    if r.upper() ==  'да':
+    if r.lower() ==  'да':
         transactions_data = filter_by_currency(transactions_data)
     print('Распечатываю итоговый список транзакций...')
 
