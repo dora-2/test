@@ -71,4 +71,4 @@ def cl(k=[], dictionary = {}):
     else:
         print("Список транзакций пуст")
 
-print(cl())
+print(type(cl()))

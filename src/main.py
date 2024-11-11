@@ -2,6 +2,7 @@ from src.utils import cl
 from src.csv_pandas import scl, excel_read
 from src.processing import filter_by_state, sort_by_date
 from src.generators import filter_by_currency
+from src.re_collections_random import filter_operations
 
 
 
@@ -55,7 +56,7 @@ def main(s=0):
     print('Отфильтровать список транзакций по определенному слову в описании? Да/Нет')
     r = input()
     if r.lower() ==  'да':
-        transactions_data = filter_by_currency(transactions_data)
+        transactions_data = filter_operations(transactions_data)
     print('Распечатываю итоговый список транзакций...')
 
     return transactions_data
